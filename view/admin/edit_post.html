@@ -34,11 +34,13 @@
                     <label class="mdl-textfield__label" for="title">Title</label>
                   </div>
                 </div>
-
-                <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="position: relative">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label fullwidth">
                     <input class="mdl-textfield__input" type="text" name="slug" id="slug" value="{{ .Post.Slug }}">
                     <label class="mdl-textfield__label" for="slug">Post Slug</label>
+                    <div  id="generate_slug" style="display: block; position: absolute; right: 10px; top: 0px; background-color:#b3d4fc; padding: 10px; border-radius: 10px">
+                      generate slug
+                    </div>
                   </div>
                 </div>
 
@@ -126,6 +128,16 @@
 {{ define "after_footer" }}
 
 <script>
+  window.onload = function () {
+    var generate_slug = document.getElementById("generate_slug");
+    var slug = document.getElementById("slug");
+    generate_slug.onclick = function () {
+      if(typeof pumelo === "undefined") return;
+      slug.value = pumelo.randomString(10);
+      slug.focus()
+    }
+  };
+
   var simplemde = new SimpleMDE({
     element: $("#content")[0],
     renderingConfig: {
@@ -133,4 +145,5 @@
     }
   });
 </script>
+
 {{ end }}
