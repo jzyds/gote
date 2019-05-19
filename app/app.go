@@ -1,5 +1,5 @@
-// Package Dingo is the main entry point to your application.
-package Dingo
+// Package Gote is the main entry point to your application.
+package Gote
 
 import (
 	"fmt"

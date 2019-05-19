@@ -39,7 +39,7 @@ type User struct {
 	Role           int        `meddler:"-"` //1 = Administrator, 2 = Editor, 3 = Author, 4 = Owner
 }
 
-var ghostUser = &User{Id: 0, Name: "Dingo User", Email: "example@example.com"}
+var ghostUser = &User{Id: 0, Name: "admin", Email: "example@example.com"}
 
 // NewUser creates a new user from the given email and name, with the CreatedAt
 // and UpdatedAt fields set to the current time.

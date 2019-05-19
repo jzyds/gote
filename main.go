@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
-
+	"fmt"
 	"github.com/jzyds/gote/app"
+	"github.com/jzyds/gote/script"
 )
 
 func main() {
@@ -11,8 +12,21 @@ func main() {
 	dbFilePathPtr := flag.String("database", "dingo.db", "The database file path for Djingo to use.")
 	privKeyPathPtr := flag.String("priv-key", "dingo.rsa", "The private key file path for JWT.")
 	pubKeyPathPtr := flag.String("pub-key", "dingo.rsa.pub", "The public key file path for JWT.")
-	flag.Parse()
+	typePtr := flag.String("type", "serve", "Type of operation")
+	migratePath := flag.String("migratePath", "empty", "The path of source folder used to migrate.")
 
-	Dingo.Init(*dbFilePathPtr, *privKeyPathPtr, *pubKeyPathPtr)
-	Dingo.Run(*portPtr)
+	flag.Parse()
+	Gote.Init(*dbFilePathPtr, *privKeyPathPtr, *pubKeyPathPtr)
+
+	if *typePtr == "serve" {
+		Gote.Run(*portPtr)
+	} else if *typePtr == "migration" {
+		if *migratePath == "empty" {
+			fmt.Println("Path of source folder for migrate can not be empty.")
+		}else {
+			script.Hexo(*migratePath)
+		}
+	} else {
+		fmt.Println("Incorrect type.")
+	}
 }
