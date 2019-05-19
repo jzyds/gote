@@ -23,7 +23,7 @@ func Initialize(dbPath string, dbExists bool) error {
 		return err
 	}
 
-	SetNavigators([]string{"Home"}, []string{"/"})
+	//SetNavigators([]string{"Home"}, []string{"/"})
 
 	return nil
 }
