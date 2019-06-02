@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func resize(path string, w int)  {
+func Resize(path string, w int) {
 	fmt.Println(path)
 	src, err := imaging.Open(path)
 	if err != nil {
@@ -23,7 +23,7 @@ func resize(path string, w int)  {
 	}
 }
 
-func listFile(w int)  {
+func listFile(w int) {
 	dir := "upload"
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
@@ -44,10 +44,10 @@ func listFile(w int)  {
 		} else {
 			p = dir + "/" + fN
 		}
-		resize(p, w)
+		Resize(p, w)
 	}
 }
 
-func ResizeUploadImg(w int)  {
+func ResizeUploadImg(w int) {
 	listFile(w)
 }

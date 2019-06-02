@@ -40,5 +40,5 @@ func main() {
 	}
 }
 
+// TODO: save source image
 // TODO: add pagination in admin post page
-// https://github.com/desandro/masonry

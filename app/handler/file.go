@@ -15,6 +15,7 @@ import (
 	"github.com/dinever/golf"
 	"github.com/jzyds/gote/app/model"
 	"github.com/jzyds/gote/app/utils"
+	"github.com/jzyds/gote/script"
 )
 
 func getRandomString(l int) string {
@@ -69,7 +70,7 @@ func GalleryListHandle(ctx *golf.Context) {
 
 	if !ok || len(pageList) < 1 {
 		limit = 10
-	}else {
+	} else {
 		l, err := strconv.Atoi(limitList[0])
 		if err == nil {
 			limit = l
@@ -207,6 +208,14 @@ func FileUploadHandler(ctx *golf.Context) {
 			"msg":    e.Error(),
 		})
 		return
+	}
+
+	imgSuffix := [5]string{".jpg", ".png", ".gif", ".jpeg", ".webp"}
+	for _, suffix := range imgSuffix {
+		if strings.HasSuffix(Url, suffix) {
+			script.Resize(Url, 500)
+			break
+		}
 	}
 
 	fDb := model.NewFileDb()
