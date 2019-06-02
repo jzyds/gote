@@ -4,8 +4,7 @@
   "description": "Blog engine written in Go.",
   "main": "index.js",
   "scripts": {},
-  "author": "Dinever",
-  "repository": "https://github.com/dinever/dingo",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
