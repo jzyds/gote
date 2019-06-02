@@ -134,7 +134,7 @@ func AdminPostHandler(ctx *golf.Context) {
 		page, _ = strconv.Atoi(p)
 	}
 	posts := new(model.Posts)
-	pager, err := posts.GetPostList(int64(page), 10, false, false, "created_at DESC")
+	pager, err := posts.GetPostList(int64(page), 30, false, false, "created_at DESC")
 	if err != nil {
 		panic(err)
 	}
