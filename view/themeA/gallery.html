@@ -6,6 +6,7 @@
 
 	<script>
 		let currentPage = 1;
+		let macy;
 
 		function initPSWP() {
 			var pswpElement = document.querySelectorAll(".pswp")[0];
@@ -42,19 +43,10 @@
 		}
 
 		function mFun() {
-			var macy = Macy({
-				container: '#imgContainer',
-				trueOrder: false,
-				waitForImages: false,
-				margin: 24,
-				columns: 6,
-				breakAt: {
-					1200: 5,
-					940: 3,
-					520: 2,
-					400: 1
-				}
-			});
+			if (!macy) return;
+			macy.runOnImageLoad(function () {
+				macy.recalculate(true);
+			}, true);
 		}
 
 		function addImg(list) {
@@ -71,7 +63,7 @@
 		function reloadData() {
 			$.ajax({
 				type: "get",
-				url: "/gallery?page=" + currentPage,
+				url: "/gallery?page=" + currentPage + "&limit=10",
 				success: function (json) {
 					if (json != null) {
 						addImg(json);
@@ -85,6 +77,20 @@
 			let wrapper = document.getElementById("wrapper");
 			sidebar.style.display = "none";
 			wrapper.style.marginRight = "0px";
+
+			macy = Macy({
+				container: '#imgContainer',
+				trueOrder: false,
+				waitForImages: false,
+				margin: 24,
+				columns: 4,
+				breakAt: {
+					1200: 4,
+					940: 3,
+					520: 2,
+					400: 1
+				}
+			});
 
 			reloadData();
 			// 上拉加载更多

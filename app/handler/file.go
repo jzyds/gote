@@ -56,6 +56,7 @@ func FileGalleryStatusHandler(ctx *golf.Context) {
 func GalleryListHandle(ctx *golf.Context) {
 	var files model.FileDbItem
 	var err error
+	var limit int
 
 	pageList, ok := ctx.Request.URL.Query()["page"]
 	if !ok || len(pageList) < 1 {
@@ -64,9 +65,18 @@ func GalleryListHandle(ctx *golf.Context) {
 		ctx.JSON(APIResponseBodyJSON{Status: NewErrorStatusJSON(err.Error())})
 		return
 	}
-	limit := 10
-	page := pageList[0]
+	limitList, ok := ctx.Request.URL.Query()["limit"]
 
+	if !ok || len(pageList) < 1 {
+		limit = 10
+	}else {
+		l, err := strconv.Atoi(limitList[0])
+		if err == nil {
+			limit = l
+		}
+	}
+
+	page := pageList[0]
 	intPage, _ := strconv.Atoi(page)
 	if intPage < 1 {
 		ctx.SendStatus(http.StatusBadRequest)

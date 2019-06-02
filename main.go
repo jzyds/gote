@@ -41,5 +41,4 @@ func main() {
 }
 
 // TODO: add pagination in admin post page
-// TODO: gallery page add masonry
 // https://github.com/desandro/masonry
