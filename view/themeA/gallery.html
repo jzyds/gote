@@ -1,92 +1,100 @@
 {{ extends "/default.html" }}
 
 {{ define "content"}}
-    <div id="content" class="content-home">
-        <div id="imgContainer" class="justified-gallery"></div>
-    </div>
+	<div id="imgContainer" class="grid">
+	</div>
 
-    <script>
-        let currentPage = 1;
+	<script>
+		let currentPage = 1;
 
-        function initPSWP() {
-            var pswpElement = document.querySelectorAll(".pswp")[0];
+		function initPSWP() {
+			var pswpElement = document.querySelectorAll(".pswp")[0];
 
-            // build items array
-            var items = [
-                {
-                    src: "https://placekitten.com/600/400",
-                    w: 600,
-                    h: 400
-                },
-                {
-                    src: "https://placekitten.com/1200/900",
-                    w: 1200,
-                    h: 900
-                }
-            ];
+			// build items array
+			var items = [
+				{
+					src: "https://placekitten.com/600/400",
+					w: 600,
+					h: 400
+				},
+				{
+					src: "https://placekitten.com/1200/900",
+					w: 1200,
+					h: 900
+				}
+			];
 
-            // define options (if needed)
-            var options = {
-                // optionName: 'option value'
-                // for example:
-                index: 0 // start at first slide
-            };
+			// define options (if needed)
+			var options = {
+				// optionName: 'option value'
+				// for example:
+				index: 0 // start at first slide
+			};
 
-            // Initializes and opens PhotoSwipe
-            var gallery = new PhotoSwipe(
-                pswpElement,
-                PhotoSwipeUI_Default,
-                items,
-                options
-            );
-            gallery.init();
-        }
+			// Initializes and opens PhotoSwipe
+			var gallery = new PhotoSwipe(
+				pswpElement,
+				PhotoSwipeUI_Default,
+				items,
+				options
+			);
+			gallery.init();
+		}
 
-        function addImg(list) {
-            var imgContainer = document.getElementById("imgContainer");
-            var h = "";
-            for (var i = 0; i < list.length; i++) {
-                var item = list[i];
-                h += `
-                <a href="#" title="">
-                  <img alt="" src="/${item.URL}" />
-                </a>
-              `;
-            }
-            imgContainer.innerHTML += h;
-            $("#imgContainer").justifiedGallery({
-                rowHeight: 300,
-                lastRow: "justify",
-                margins: 10
-            });
-        }
+		function mFun() {
+			var macy = Macy({
+				container: '#imgContainer',
+				trueOrder: false,
+				waitForImages: false,
+				margin: 24,
+				columns: 6,
+				breakAt: {
+					1200: 5,
+					940: 3,
+					520: 2,
+					400: 1
+				}
+			});
+		}
 
-        function reloadData() {
-            $.ajax({
-                type: "get",
-                url: "/gallery?page=" + currentPage,
-                success: function (json) {
-                    if (json != null) {
-                        addImg(json);
-                    }
-                }
-            });
-        }
+		function addImg(list) {
+			var imgContainer = document.getElementById("imgContainer");
+			var h = "";
+			for (var i = 0; i < list.length; i++) {
+				var item = list[i];
+				h += `<img alt="" src="/${item.URL}" class="grid-item"/>`;
+			}
+			imgContainer.innerHTML += h;
+			mFun();
+		}
 
-        window.onload = function () {
-            let sidebar = document.getElementById("sidebar");
-            let wrapper = document.getElementById("wrapper");
-            sidebar.style.display = "none";
-            wrapper.style.marginRight = "0px";
+		function reloadData() {
+			$.ajax({
+				type: "get",
+				url: "/gallery?page=" + currentPage,
+				success: function (json) {
+					if (json != null) {
+						addImg(json);
+					}
+				}
+			});
+		}
 
-            reloadData();
-            // 上拉加载更多
-            $(window).scroll(function () {
-                if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                    currentPage++;
-                    reloadData();
-                }
-            });
-        };
-    </script>
+		window.onload = function () {
+			let sidebar = document.getElementById("sidebar");
+			let wrapper = document.getElementById("wrapper");
+			sidebar.style.display = "none";
+			wrapper.style.marginRight = "0px";
+
+			reloadData();
+			// 上拉加载更多
+			$(window).scroll(function () {
+				if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+					currentPage++;
+					reloadData();
+				}
+			});
+		};
+	</script>
+	<script src="https://unpkg.com/macy@2.5.0/dist/macy.js"></script>
 {{ end }}
