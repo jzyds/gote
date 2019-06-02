@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jzyds/gote/app"
 	"github.com/jzyds/gote/script"
+	"strconv"
 )
 
 func main() {
@@ -14,6 +15,7 @@ func main() {
 	pubKeyPathPtr := flag.String("pub-key", "dingo.rsa.pub", "The public key file path for JWT.")
 	typePtr := flag.String("type", "serve", "Type of operation")
 	migratePath := flag.String("migratePath", "empty", "The path of hexo source folder used to migrate.")
+	imgResizeWidth := flag.String("imgResizeWidth", "200", "The width of resize image.")
 
 	flag.Parse()
 	Gote.Init(*dbFilePathPtr, *privKeyPathPtr, *pubKeyPathPtr)
@@ -23,9 +25,16 @@ func main() {
 	} else if *typePtr == "migration" {
 		if *migratePath == "empty" {
 			fmt.Println("Path of source folder for migrate can not be empty.")
-		}else {
+		} else {
 			script.Hexo(*migratePath)
 		}
+	} else if *typePtr == "resizeUploadImage" {
+		w, err := strconv.Atoi(*imgResizeWidth)
+		if err != nil {
+			fmt.Printf("i=%d, type: %T\n", w, w)
+			return
+		}
+		script.ResizeUploadImg(w)
 	} else {
 		fmt.Println("Incorrect type.")
 	}
