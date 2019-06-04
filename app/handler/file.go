@@ -210,7 +210,7 @@ func FileUploadHandler(ctx *golf.Context) {
 		return
 	}
 
-	imgSuffix := [5]string{".jpg", ".png", ".jpeg", ".webp"}
+	imgSuffix := [4]string{".jpg", ".png", ".jpeg", ".webp"}
 	for _, suffix := range imgSuffix {
 		if strings.HasSuffix(Url, suffix) {
 			script.Resize(Url, 500)
