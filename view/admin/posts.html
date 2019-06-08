@@ -58,6 +58,14 @@
 
   </div>
 
+  <div class="ml-data-table-pager p-10">
+	  {{range .Pager.PageSlice}}
+		  <a href="/admin/posts/?page={{.}}" class="mdl-button {{if eq $.Pager.Current .}}mdl-color--blue mdl-color-text--white{{end}}">
+			  <span>{{.}}</span>
+		  </a>
+	  {{end}}
+  </div>
+
   <a href="/admin/editor/post" class="mdl-button mdl-button--fab mdl-button--primary mdl-js-button mdl-js-ripple-effect dingo-button--new">
     <i class="material-icons">add</i>
     <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating"></span></span>
