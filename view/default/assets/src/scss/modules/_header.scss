@@ -26,12 +26,62 @@
 	}
 }
 
+@media(max-width:991px) {
+  #header {
+    #top {
+      .container {
+        position: relative;
+        padding: 30px;
+
+        #logo-themeA{
+          text-align: center;
+        }
+
+        .nav-themeA-main {
+          font-size: 12px;
+          position: absolute;
+          left: 0px;
+          top: 100px;
+          width: 100%;
+          text-align: center;
+          .nav-themeA {
+            display: inline-block;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+@media(min-width:991px) {
+  #header {
+    #top {
+      .container {
+        position: relative;
+        padding: 30px;
+
+        .nav-themeA-main {
+          position: absolute;
+          right: 30px;
+          top: 60px;
+
+          .nav-themeA {
+            display: inline-block;
+            margin-left: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+
 #header {
-  background-color: $header_background_color;
+  // background-color: $header_background_color;
   #top {
     .container {
+      position: relative;
       padding: 30px;
-      background-color: $header_color;
+      // background-color: $header_color;
     }
     #logo {
       float: left;
