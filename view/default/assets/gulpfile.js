@@ -1,6 +1,6 @@
 "use strict";
 
-//gulp production is ran with 'type=production gulp'
+//gulp production is run with 'type=production gulp'
 
 var gulp = require('gulp'),
   jshint = require('gulp-jshint'),
